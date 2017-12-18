@@ -12,7 +12,7 @@
             <Host Name="Document"/>
         </Hosts>
         <DefaultSettings>
-            <SourceLocation DefaultValue="\\fs-home\BoilerplateAddin\home.html" />
+            <SourceLocation DefaultValue="https://igrave.github.io/DocPropsPlugin/home.html" />
         </DefaultSettings>
         <Permissions>ReadWriteDocument</Permissions>
     </OfficeApp>
