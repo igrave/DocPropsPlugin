@@ -29,12 +29,8 @@
     // create a proxy range object with the results.
     var range = context.document.getSelection();
 
-    // Synchronize the document state by executing the queued commands,
-    // and return a promise to indicate task completion.
-    return context.sync().then(function () {
-        console.log('OOXML added to the beginning of the range.');
-    });
-})
+    console.log('OOXML added to the beginning of the range.');
+    })
 .catch(function (error) {
     console.log('Error: ' + JSON.stringify(error));
     if (error instanceof OfficeExtension.Error) {
