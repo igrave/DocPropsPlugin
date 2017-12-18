@@ -25,18 +25,27 @@
     function insertfieldxml() {
      Word.run(function (context) {
 
-    // Queue a command to get the current selection and then
-    // create a proxy range object with the results.
-    var range = context.document.getSelection();
+        var myOOXMLRequest = new XMLHttpRequest();
+        var myXML;
+        myOOXMLRequest.open('GET', 'xmlsnip', false);
+        myOOXMLRequest.send();
+        if (myOOXMLRequest.status === 200) {
+            myXML = myOOXMLRequest.responseText;
+        }
+        context.document.setSelectedDataAsync(myXML, { coercionType: 'ooxml' });
+    
+        // Queue a command to get the current selection and then
+        // create a proxy range object with the results.
+        var range = context.document.getSelection();
 
-    console.log('OOXML added to the beginning of the range.');
-    })
-.catch(function (error) {
-    console.log('Error: ' + JSON.stringify(error));
-    if (error instanceof OfficeExtension.Error) {
-        console.log('Debug info: ' + JSON.stringify(error.debugInfo));
-    }
-});
+        console.log('OOXML added to the beginning of the range.');
+        })
+    .catch(function (error) {
+        console.log('Error: ' + JSON.stringify(error));
+        if (error instanceof OfficeExtension.Error) {
+            console.log('Debug info: ' + JSON.stringify(error.debugInfo));
+        }
+    });
         
     }
     
