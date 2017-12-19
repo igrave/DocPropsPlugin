@@ -12,6 +12,7 @@
                 $('#checkhov').click(insertChekhovQuoteAtTheBeginning);
                 $('#proverb').click(insertChineseProverbAtTheEnd);
                 $('#fieldadd').click(insertfieldxml);
+                $('#props').click(showProps);
                 $('#supportedVersion').html('This code is using Word 2016 or greater.');
             }
             else {
@@ -20,6 +21,19 @@
             }
         });
     };
+    
+    
+    function showProps(){
+      Word.context.run(function(context){
+        var properties = context.document.properties;
+        $('wordProps').html(properties);
+        context.load(properties);
+          return context.sync().then(function(){
+            properties.title = properties.title + " Additional Title Text"; // once the sync goes off, this works.
+        return context.sync();
+    });    
+});
+    }
     
     
     function insertfieldxml() {
