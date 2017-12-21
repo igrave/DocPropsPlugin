@@ -30,6 +30,7 @@
         context.load(properties);
         var custom = properties.customProperties;
         context.load(custom);
+        var HAT = custom.load();
           return context.sync().then(function(){
             properties.title = properties.title + " Additional Title Text"; // once the sync goes off, this works.
         return context.sync();
