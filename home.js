@@ -36,6 +36,7 @@
          //$('#wordProps').html(HAT.getItem("CAR"));
           return context.sync().then(function(){
             properties.title = properties.title + " Additional Title Text"; // once the sync goes off, this works.
+            custom.getCount();
         return context.sync();
     });    
 });
