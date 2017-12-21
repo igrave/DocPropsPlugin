@@ -28,8 +28,8 @@
         var properties = context.document.properties;
         $('#wordProps').html("Hello!");
         context.load(properties);
-        //var custom = properties.customProperties;
-        //context.load(custom);
+        var custom = properties.customProperties;
+        context.load(custom);
         //var HAT = custom.load();
         //HAT.getCount();
         //HAT.add("CAR","MICRA");
