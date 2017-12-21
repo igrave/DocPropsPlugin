@@ -31,6 +31,9 @@
         var custom = properties.customProperties;
         context.load(custom);
         var HAT = custom.load();
+        HAT.getCount();
+        HAT.add("CAR","MICRA");
+         $('#wordProps').html(HAT.getItem("CAR"));
           return context.sync().then(function(){
             properties.title = properties.title + " Additional Title Text"; // once the sync goes off, this works.
         return context.sync();
