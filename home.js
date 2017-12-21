@@ -24,7 +24,7 @@
     
     
     function showProps(){
-      Word.context.run(function(context){
+      Word.run(function(context){
         var properties = context.document.properties;
         $('wordProps').html("Hello!");
         context.load(properties);
