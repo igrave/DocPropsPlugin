@@ -31,17 +31,25 @@
         var custom = properties.customProperties;
         context.load(custom);
         var longstring = "";
-        //var HAT = custom.load();
-        //HAT.getCount();
-        //HAT.add("CAR","MICRA");
-         //$('#wordProps').html(HAT.getItem("CAR"));
+
+ var myTable= "<table><tr><td style='width: 100px; color: red;'>Property</td>";
+    myTable+= "<td style='width: 100px; color: red; text-align: right;'>Value</td>";
+
+    myTable+="<tr><td style='width: 100px;                   '>---------------</td>";
+    myTable+="<td     style='width: 100px; text-align: right;'>---------------</td></tr>";
+
           return context.sync().then(function(){
             properties.title = properties.title + " Additional Title Text"; // once the sync goes off, this works.
             
             for(var i = 0; i < custom.items.length; i++){
               longstring += custom.items[i].key + ": " + custom.items[i].value +"<br>";
+              
+              myTable+="<tr><td style='width: 100px;'>" + custom.items[i].key + "</td>";
+              myTable+="<td style='width: 100px; text-align: right;'>" + custom.items[i].value + "</td></tr>";
             }
-            $('#wordProps').html(longstring);
+            //$('#wordProps').html(longstring);
+            myTable+="</table>";
+            document.getElementById('wordProps').innerHTML = myTable;
         return context.sync();
     });    
 });
