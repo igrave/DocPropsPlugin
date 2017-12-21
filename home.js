@@ -30,13 +30,18 @@
         context.load(properties);
         var custom = properties.customProperties;
         context.load(custom);
+        var longstring = "";
         //var HAT = custom.load();
         //HAT.getCount();
         //HAT.add("CAR","MICRA");
          //$('#wordProps').html(HAT.getItem("CAR"));
           return context.sync().then(function(){
             properties.title = properties.title + " Additional Title Text"; // once the sync goes off, this works.
-            custom.getCount();
+            
+            for(var i = 0; i < custom.items.length; i++){
+              longstring += custom.items[i].key + ": " + custom.items[i].value +"<br>";
+            }
+            $('#wordProps').html(longstring);
         return context.sync();
     });    
 });
