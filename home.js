@@ -26,8 +26,10 @@
     function showProps(){
       Word.run(function(context){
         var properties = context.document.properties;
-        $('wordProps').html("Hello!");
+        $('#wordProps').html("Hello!");
         context.load(properties);
+        var custom = properties.customProperties;
+        context.load(custom);
           return context.sync().then(function(){
             properties.title = properties.title + " Additional Title Text"; // once the sync goes off, this works.
         return context.sync();
