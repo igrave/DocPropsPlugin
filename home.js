@@ -44,15 +44,66 @@
               
               myTable+="<tr><td style='width: 100px;'>" + custom.items[i].key + "</td>";
               myTable+="<td style='width: 100px; text-align: right;'>" + custom.items[i].value + "</td>";
-              myTable+="<td style='width: 100px; text-align: right;'><button id='" + custom.items[i].key + "' onClick='insertEmersonQuoteAtSelection()'>Insert</button></td></tr>";
+              myTable+="<td style='width: 100px; text-align: right;'><button id='" + custom.items[i].key + "'>Insert</button></td></tr>";
+              
+              $(custom.items[i].key).on("click", {fieldname:custom.items[i].key}, insertfieldxmlname);
             }
             //$('#wordProps').html(longstring);
             myTable+="</table>";
             document.getElementById('wordProps').innerHTML = myTable;
+            
+         
+            
+            
         return context.sync();
     });    
 });
     }
+  
+  
+  
+    function insertfieldxmlname(fieldname) {
+
+    var myOOXMLRequest = new XMLHttpRequest();
+    var myXML;
+ //   myOOXMLRequest.open('GET', fileName, false);
+//    myOOXMLRequest.send();
+//    if (myOOXMLRequest.status === 200) {
+//        myXML = myOOXMLRequest.responseText;
+//    }
+    
+    
+    myXML = `<pkg:package xmlns:pkg="http://schemas.microsoft.com/office/2006/xmlPackage">
+  <pkg:part pkg:name="/_rels/.rels" pkg:contentType="application/vnd.openxmlformats-package.relationships+xml" pkg:padding="512">
+    <pkg:xmlData>
+      <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+        <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
+      </Relationships>
+    </pkg:xmlData>
+  </pkg:part>
+  <pkg:part pkg:name="/word/document.xml" pkg:contentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml">
+    <pkg:xmlData>
+      <w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" >
+        <w:body>
+          <w:p>
+            <w:fldSimple w:instr="DOCPROPERTY ${fieldname} \\* MERGEFORMAT">
+              <w:r>
+                <w:t>JOBtxt</w:t>
+              </w:r>
+           </w:fldSimple>
+          </w:p>
+        </w:body>
+      </w:document>
+    </pkg:xmlData>
+  </pkg:part>
+</pkg:package>`;
+    
+    
+    Office.context.document.setSelectedDataAsync(myXML, { coercionType: 'ooxml' });
+
+}
+    
+      
     
     
     
