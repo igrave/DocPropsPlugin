@@ -12,6 +12,7 @@
                 $('#checkhov').click(insertChekhovQuoteAtTheBeginning);
                 $('#proverb').click(insertChineseProverbAtTheEnd);
                 $('#fieldadd').click(insertfieldxml);
+                $('#fieldaddname').click(insertfieldxmlname);
                 $('#props').click(showProps);
                 $('#supportedVersion').html('This code is using Word 2016 or greater.');
             }
@@ -44,9 +45,11 @@
               
               myTable+="<tr><td style='width: 100px;'>" + custom.items[i].key + "</td>";
               myTable+="<td style='width: 100px; text-align: right;'>" + custom.items[i].value + "</td>";
-              myTable+="<td style='width: 100px; text-align: right;'><button id='" + custom.items[i].key + "'>Insert</button></td></tr>";
+              myTable+="<td style='width: 100px; text-align: right;'><input type='radio' name='fieldNameSelection' value='" + custom.items[i].key + "'/></td></tr>";
               
-              $(custom.items[i].key).on("click", {fieldname:custom.items[i].key}, insertfieldxmlname);
+              //myTable+="<td style='width: 100px; text-align: right;'><button id='" + custom.items[i].key + "'>Insert</button></td></tr>";
+              
+              //$(custom.items[i].key).on("click", {fieldname:custom.items[i].key}, insertfieldxmlname);
             }
             //$('#wordProps').html(longstring);
             myTable+="</table>";
@@ -62,8 +65,10 @@
   
   
   
-    function insertfieldxmlname(fieldname) {
+    function insertfieldxmlname() {
 
+    var fieldname = $('input[name="fieldNameSelection"]:checked').val();
+    
     var myOOXMLRequest = new XMLHttpRequest();
     var myXML;
  //   myOOXMLRequest.open('GET', fileName, false);
