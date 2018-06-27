@@ -33,7 +33,8 @@
         var longstring = "";
 
         var myTable= "<table><tr><td style='width: 100px; color: red;'>Property</td>";
-        myTable+= "<td style='width: 100px; color: red; text-align: right;'>Value</td></tr>";
+        myTable+= "<td style='width: 100px; color: red; text-align: right;'>Value</td>";
+        myTable+= "<td style='width: 100px; color: red; text-align: right;'>Insert</td></tr>";
 
           return context.sync().then(function(){
             properties.title = properties.title + " Additional Title Text"; 
@@ -42,7 +43,8 @@
               longstring += custom.items[i].key + ": " + custom.items[i].value +"<br>";
               
               myTable+="<tr><td style='width: 100px;'>" + custom.items[i].key + "</td>";
-              myTable+="<td style='width: 100px; text-align: right;'>" + custom.items[i].value + "</td></tr>";
+              myTable+="<td style='width: 100px; text-align: right;'>" + custom.items[i].value + "</td>";
+              myTable+="<td style='width: 100px; text-align: right;'><button id='" + custom.items[i].key + "'>Insert</button></td></tr>";
             }
             //$('#wordProps').html(longstring);
             myTable+="</table>";
