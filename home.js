@@ -79,7 +79,9 @@
         <w:body>
           <w:p>
             <w:fldSimple w:instr="DOCPROPERTY JOB \\* MERGEFORMAT">
-
+              <w:r>
+                <w:t>JOBtxt</w:t>
+              </w:r>
            </w:fldSimple>
           </w:p>
         </w:body>
