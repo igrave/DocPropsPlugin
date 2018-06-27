@@ -44,7 +44,7 @@
               
               myTable+="<tr><td style='width: 100px;'>" + custom.items[i].key + "</td>";
               myTable+="<td style='width: 100px; text-align: right;'>" + custom.items[i].value + "</td>";
-              myTable+="<td style='width: 100px; text-align: right;'><button id='" + custom.items[i].key + "' onClick=insertEmersonQuoteAtSelection()>Insert</button></td></tr>";
+              myTable+="<td style='width: 100px; text-align: right;'><button id='" + custom.items[i].key + "' onClick='insertEmersonQuoteAtSelection()'>Insert</button></td></tr>";
             }
             //$('#wordProps').html(longstring);
             myTable+="</table>";
