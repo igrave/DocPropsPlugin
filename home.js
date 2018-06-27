@@ -8,10 +8,10 @@
             // Use this to check whether the API is supported in the Word client.
             if (Office.context.requirements.isSetSupported('WordApi', 1.1)) {
                 // Do something that is only available via the new APIs
-                $('#emerson').click(insertEmersonQuoteAtSelection);
-                $('#checkhov').click(insertChekhovQuoteAtTheBeginning);
-                $('#proverb').click(insertChineseProverbAtTheEnd);
-                $('#fieldadd').click(insertfieldxml);
+             //   $('#emerson').click(insertEmersonQuoteAtSelection);
+             //   $('#checkhov').click(insertChekhovQuoteAtTheBeginning);
+             //   $('#proverb').click(insertChineseProverbAtTheEnd);
+             //   $('#fieldadd').click(insertfieldxml);
                 $('#fieldaddname').click(insertfieldxmlname);
                 $('#props').click(showProps);
                 $('#supportedVersion').html('This code is using Word 2016 or greater.');
@@ -93,7 +93,7 @@
           <w:p>
             <w:fldSimple w:instr="DOCPROPERTY ${fieldname} \\* MERGEFORMAT">
               <w:r>
-                <w:t>JOBtxt</w:t>
+                <w:t>${fieldname}</w:t>
               </w:r>
            </w:fldSimple>
           </w:p>
