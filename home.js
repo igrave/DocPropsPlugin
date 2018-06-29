@@ -19,7 +19,7 @@
         //        $('#fieldaddname').click(insertfieldxmlname);
                 $('#props').click(showProps);
                 $('#addprop').click(addProp);
-                $('#supportedVersion').html('This code is using Word 2016 or greater.');
+                $('#addpropdirect').click(addPropInsert);
             }
             else {
                 // Just letting you know that this code will not work with your version of Word.
@@ -112,13 +112,14 @@
         
     });
     
+    
+    
+    function addPropInsert(){
+      addProp();
+      insertfield($('input[name="newName"]').val(), $('input[name="newValue"]').val());
+    }
+    
   }//end addProp
-  
-  
-  
-  
-  
-  
   
   
   
@@ -129,10 +130,15 @@
   
   function insertfieldxmlpars(event) {
 
-    var myXML;
+   
 
   var fieldname = event.data.name;
   var fieldvalue = event.data.value;
+  insertfield(fieldname, fieldvalue);
+}
+
+  function insertfield(fieldname, fieldvalue) {
+  var myXML;
 
     myXML = `<pkg:package xmlns:pkg="http://schemas.microsoft.com/office/2006/xmlPackage">
   <pkg:part pkg:name="/_rels/.rels" pkg:contentType="application/vnd.openxmlformats-package.relationships+xml" pkg:padding="512">
@@ -177,103 +183,6 @@
   
   
   
-  
-    function insertfieldxmlname() {
-
-    var fieldname = $('input[name="fieldNameSelection"]:checked').val();
-    
-    //var myOOXMLRequest = new XMLHttpRequest();
-    var myXML;
- //   myOOXMLRequest.open('GET', fileName, false);
-//    myOOXMLRequest.send();
-//    if (myOOXMLRequest.status === 200) {
-//        myXML = myOOXMLRequest.responseText;
-//    }
-    
-    
-    myXML = `<pkg:package xmlns:pkg="http://schemas.microsoft.com/office/2006/xmlPackage">
-  <pkg:part pkg:name="/_rels/.rels" pkg:contentType="application/vnd.openxmlformats-package.relationships+xml" pkg:padding="512">
-    <pkg:xmlData>
-      <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-        <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
-      </Relationships>
-    </pkg:xmlData>
-  </pkg:part>
-  <pkg:part pkg:name="/word/document.xml" pkg:contentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml">
-    <pkg:xmlData>
-      <w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" >
-        <w:body>
-          <w:p>
-            <w:fldSimple w:instr="DOCPROPERTY ${fieldname} \\* MERGEFORMAT">
-              <w:r>
-                <w:t>${fieldname}</w:t>
-              </w:r>
-           </w:fldSimple>
-          </w:p>
-        </w:body>
-      </w:document>
-    </pkg:xmlData>
-  </pkg:part>
-</pkg:package>`;
-    
-    
-    Office.context.document.setSelectedDataAsync(
-      myXML,
-      { coercionType: 'ooxml' },
-        function (asyncResult) {
-          if (asyncResult.status === Office.AsyncResultStatus.Failed) {
-            console.log("Action failed with error: " + asyncResult.error.message);
-          }
-        });
-
-}
-    
-      
-    
-    
-    
-    function insertfieldxml() {
-
-    var myOOXMLRequest = new XMLHttpRequest();
-    var myXML;
- //   myOOXMLRequest.open('GET', fileName, false);
-//    myOOXMLRequest.send();
-//    if (myOOXMLRequest.status === 200) {
-//        myXML = myOOXMLRequest.responseText;
-//    }
-    
-    
-    myXML = `<pkg:package xmlns:pkg="http://schemas.microsoft.com/office/2006/xmlPackage">
-  <pkg:part pkg:name="/_rels/.rels" pkg:contentType="application/vnd.openxmlformats-package.relationships+xml" pkg:padding="512">
-    <pkg:xmlData>
-      <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-        <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
-      </Relationships>
-    </pkg:xmlData>
-  </pkg:part>
-  <pkg:part pkg:name="/word/document.xml" pkg:contentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml">
-    <pkg:xmlData>
-      <w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" >
-        <w:body>
-          <w:p>
-            <w:fldSimple w:instr="DOCPROPERTY JOB \\* MERGEFORMAT">
-              <w:r>
-                <w:t>JOBtxt</w:t>
-              </w:r>
-           </w:fldSimple>
-          </w:p>
-        </w:body>
-      </w:document>
-    </pkg:xmlData>
-  </pkg:part>
-</pkg:package>`;
-    
-    
-    Office.context.document.setSelectedDataAsync(myXML, { coercionType: 'ooxml' });
-
-}
-    
-    
 
  
  
