@@ -115,8 +115,11 @@
     
     
     function addPropInsert(){
+      console.log("Trying");
       addProp();
+      console.log("addProp is finished");
       insertfield($('input[name="newName"]').val(), $('input[name="newValue"]').val());
+      console.log("insert is finished");
     }
     
   }//end addProp
