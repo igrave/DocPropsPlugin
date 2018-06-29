@@ -16,7 +16,7 @@
              //   $('#checkhov').click(insertChekhovQuoteAtTheBeginning);
              //   $('#proverb').click(insertChineseProverbAtTheEnd);
              //   $('#fieldadd').click(insertfieldxml);
-                $('#fieldaddname').click(insertfieldxmlname);
+        //        $('#fieldaddname').click(insertfieldxmlname);
                 $('#props').click(showProps);
                 $('#addprop').click(addProp);
                 $('#supportedVersion').html('This code is using Word 2016 or greater.');
@@ -47,7 +47,7 @@
         var myTable= "<table><tr><td style='width: 100px; color: red;'>Property</td>";
         myTable+= "<td style='width: 100px; color: red; text-align: right;'>Value</td>";
         myTable+= "<td style='width: 100px; color: red; text-align: right;'>Insert</td></tr>";
-        myTable+= "<td style='width: 100px; color: red; text-align: right;'>Button</td></tr>";
+    //    myTable+= "<td style='width: 100px; color: red; text-align: right;'>Button</td></tr>";
 
           return context.sync().then(function(){
             properties.title = properties.title + " Additional Title Text"; 
@@ -61,7 +61,7 @@
               
               myTable+="<tr><td style='width: 100px;'>" + custom.items[i].key + "</td>";
               myTable+="<td style='width: 100px; text-align: right;'>" + custom.items[i].value + "</td>";
-              myTable+="<td style='width: 100px; text-align: right;'><input type='radio' name='fieldNameSelection' value='" + custom.items[i].key + "'/></td></tr>";
+           //   myTable+="<td style='width: 100px; text-align: right;'><input type='radio' name='fieldNameSelection' value='" + custom.items[i].key + "'/></td></tr>";
               
               myTable+="<td style='width: 100px; text-align: right;'><button id='" + custom.items[i].key + "'>Insert</button></td></tr>";
               
