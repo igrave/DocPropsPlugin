@@ -1,30 +1,3 @@
-(function () {
-    "use strict";
- 
-    // The initialize function is run each time the page is loaded.
-    Office.initialize = function (reason) {
-        $(document).ready(function () {
- 
-            // Use this to check whether the API is supported in the Word client.
-            if (Office.context.requirements.isSetSupported('WordApi', 1.1)) {
-                // Do something that is only available via the new APIs
-             //   $('#emerson').click(insertEmersonQuoteAtSelection);
-             //   $('#checkhov').click(insertChekhovQuoteAtTheBeginning);
-             //   $('#proverb').click(insertChineseProverbAtTheEnd);
-             //   $('#fieldadd').click(insertfieldxml);
-                $('#fieldaddname').click(insertfieldxmlname);
-                $('#props').click(showProps);
-                $('#addprop').click(addProp);
-                $('#supportedVersion').html('This code is using Word 2016 or greater.');
-            }
-            else {
-                // Just letting you know that this code will not work with your version of Word.
-                $('#supportedVersion').html('This code requires Word 2016 or greater.');
-            }
-        });
-    };
-    
-    
     function showProps(){
       Word.run(function(context){
         var properties = context.document.properties;
@@ -64,6 +37,37 @@
     });    
 });
     }
+
+
+
+(function () {
+    "use strict";
+ 
+    // The initialize function is run each time the page is loaded.
+    Office.initialize = function (reason) {
+        $(document).ready(function () {
+ 
+            // Use this to check whether the API is supported in the Word client.
+            if (Office.context.requirements.isSetSupported('WordApi', 1.1)) {
+                // Do something that is only available via the new APIs
+             //   $('#emerson').click(insertEmersonQuoteAtSelection);
+             //   $('#checkhov').click(insertChekhovQuoteAtTheBeginning);
+             //   $('#proverb').click(insertChineseProverbAtTheEnd);
+             //   $('#fieldadd').click(insertfieldxml);
+                $('#fieldaddname').click(insertfieldxmlname);
+                $('#props').click(showProps);
+                $('#addprop').click(addProp);
+                $('#supportedVersion').html('This code is using Word 2016 or greater.');
+            }
+            else {
+                // Just letting you know that this code will not work with your version of Word.
+                $('#supportedVersion').html('This code requires Word 2016 or greater.');
+            }
+        });
+    };
+    
+    
+
   
   
   function addProp(){
