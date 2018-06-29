@@ -111,10 +111,11 @@
         
         
     });
+  }
     
     
     
-    function addPropInsert(){
+  function addPropInsert(){
       console.log("Trying");
       addProp();
       console.log("addProp is finished");
