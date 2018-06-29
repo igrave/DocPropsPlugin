@@ -1,4 +1,36 @@
+
+
+
+
+(function () {
+    "use strict";
+ 
+    // The initialize function is run each time the page is loaded.
+    Office.initialize = function (reason) {
+        $(document).ready(function () {
+ 
+            // Use this to check whether the API is supported in the Word client.
+            if (Office.context.requirements.isSetSupported('WordApi', 1.1)) {
+                // Do something that is only available via the new APIs
+             //   $('#emerson').click(insertEmersonQuoteAtSelection);
+             //   $('#checkhov').click(insertChekhovQuoteAtTheBeginning);
+             //   $('#proverb').click(insertChineseProverbAtTheEnd);
+             //   $('#fieldadd').click(insertfieldxml);
+                $('#fieldaddname').click(insertfieldxmlname);
+                $('#props').click(showProps);
+                $('#addprop').click(addProp);
+                $('#supportedVersion').html('This code is using Word 2016 or greater.');
+            }
+            else {
+                // Just letting you know that this code will not work with your version of Word.
+                $('#supportedVersion').html('This code requires Word 2016 or greater.');
+            }
+        });
+    };
     
+    
+
+      
     var gPropNames = [];
     var gPropValues = [];
     
@@ -41,46 +73,23 @@
             myTable+="</table>";
             document.getElementById('wordProps').innerHTML = myTable;
             
-            
-            $('#'+custom.items[i].key).on("click", {message: 'HELPMEJAVASCRITPT!'}, console.log);
-         
-            
-            
+        for(var j = 0; j < gPropNames.length; j++){
+          $('#'+custom.items[j].key).on("click",
+              {name: custom.items[j].key, value: custom.items[j].value},
+              insertfieldxmlpars);
+        } 
+
         return context.sync();
     });    
 });
     }
-
-
-
-(function () {
-    "use strict";
- 
-    // The initialize function is run each time the page is loaded.
-    Office.initialize = function (reason) {
-        $(document).ready(function () {
- 
-            // Use this to check whether the API is supported in the Word client.
-            if (Office.context.requirements.isSetSupported('WordApi', 1.1)) {
-                // Do something that is only available via the new APIs
-             //   $('#emerson').click(insertEmersonQuoteAtSelection);
-             //   $('#checkhov').click(insertChekhovQuoteAtTheBeginning);
-             //   $('#proverb').click(insertChineseProverbAtTheEnd);
-             //   $('#fieldadd').click(insertfieldxml);
-                $('#fieldaddname').click(insertfieldxmlname);
-                $('#props').click(showProps);
-                $('#addprop').click(addProp);
-                $('#supportedVersion').html('This code is using Word 2016 or greater.');
-            }
-            else {
-                // Just letting you know that this code will not work with your version of Word.
-                $('#supportedVersion').html('This code requires Word 2016 or greater.');
-            }
-        });
-    };
-    
-    
-
+  
+  
+  
+  
+  
+  
+  
   
   
   function addProp(){
@@ -106,9 +115,24 @@
   }//end addProp
   
   
-  function insertfieldxmlpars(fieldname, fieldvalue) {
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  function insertfieldxmlpars(event) {
 
     var myXML;
+
+  var fieldname = event.data.name;
+  var fieldvalue = event.data.value;
 
     myXML = `<pkg:package xmlns:pkg="http://schemas.microsoft.com/office/2006/xmlPackage">
   <pkg:part pkg:name="/_rels/.rels" pkg:contentType="application/vnd.openxmlformats-package.relationships+xml" pkg:padding="512">
