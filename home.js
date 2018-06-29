@@ -1,3 +1,8 @@
+    
+    var gPropNames = [];
+    var gPropValues = [];
+    
+    
     function showProps(){
       Word.run(function(context){
         var properties = context.document.properties;
@@ -15,6 +20,10 @@
           return context.sync().then(function(){
             properties.title = properties.title + " Additional Title Text"; 
             
+            
+            gPropValues.length = 0;
+            gPropNames.length = 0;
+            
             for(var i = 0; i < custom.items.length; i++){
               longstring += custom.items[i].key + ": " + custom.items[i].value +"<br>";
               
@@ -24,7 +33,9 @@
               
               myTable+="<td style='width: 100px; text-align: right;'><button id='" + custom.items[i].key + "'>Insert</button></td></tr>";
               
-              $('#'+custom.items[i].key).on("click", {message: 'HELPMEJAVASCRITPT!'}, console.log);
+              gPropValues[i] = custom.items[i].value;
+              gPropNames[i] = custom.items[i].key;
+              
             }
             //$('#wordProps').html(longstring);
             myTable+="</table>";
