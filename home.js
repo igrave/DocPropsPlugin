@@ -88,7 +88,21 @@
   
   
   
-  
+  function deleteProp(name){
+    Word.run(function(context){
+        var properties = context.document.properties;
+        context.load(properties);
+        var custom = properties.customProperties;
+        context.load(custom);
+        
+        var item = custom.getItem(name);
+        item.delete();
+        
+        return context.sync().then(showProps);
+        
+        
+    });
+  }
   
   
   
