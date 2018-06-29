@@ -37,6 +37,7 @@
         var myTable= "<table><tr><td style='width: 100px; color: red;'>Property</td>";
         myTable+= "<td style='width: 100px; color: red; text-align: right;'>Value</td>";
         myTable+= "<td style='width: 100px; color: red; text-align: right;'>Insert</td></tr>";
+        myTable+= "<td style='width: 100px; color: red; text-align: right;'>Button</td></tr>";
 
           return context.sync().then(function(){
             properties.title = properties.title + " Additional Title Text"; 
@@ -48,9 +49,9 @@
               myTable+="<td style='width: 100px; text-align: right;'>" + custom.items[i].value + "</td>";
               myTable+="<td style='width: 100px; text-align: right;'><input type='radio' name='fieldNameSelection' value='" + custom.items[i].key + "'/></td></tr>";
               
-              //myTable+="<td style='width: 100px; text-align: right;'><button id='" + custom.items[i].key + "'>Insert</button></td></tr>";
+              myTable+="<td style='width: 100px; text-align: right;'><button id='" + custom.items[i].key + "'>Insert</button></td></tr>";
               
-              //$(custom.items[i].key).on("click", {fieldname:custom.items[i].key}, insertfieldxmlname);
+              $(custom.items[i].key).on("click", function() insertfieldxmlpars(custom.items[i].key, custom.items[i].value));
             }
             //$('#wordProps').html(longstring);
             myTable+="</table>";
@@ -86,6 +87,55 @@
     });
     
   }//end addProp
+  
+  
+  function insertfieldxmlpars(fieldname, fieldvalue) {
+
+    var myXML;
+
+    myXML = `<pkg:package xmlns:pkg="http://schemas.microsoft.com/office/2006/xmlPackage">
+  <pkg:part pkg:name="/_rels/.rels" pkg:contentType="application/vnd.openxmlformats-package.relationships+xml" pkg:padding="512">
+    <pkg:xmlData>
+      <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+        <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
+      </Relationships>
+    </pkg:xmlData>
+  </pkg:part>
+  <pkg:part pkg:name="/word/document.xml" pkg:contentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml">
+    <pkg:xmlData>
+      <w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" >
+        <w:body>
+          <w:p>
+            <w:fldSimple w:instr="DOCPROPERTY ${fieldname} \\* MERGEFORMAT">
+              <w:r>
+                <w:t>${fieldvalue}</w:t>
+              </w:r>
+           </w:fldSimple>
+          </w:p>
+        </w:body>
+      </w:document>
+    </pkg:xmlData>
+  </pkg:part>
+</pkg:package>`;
+    
+    
+    Office.context.document.setSelectedDataAsync(
+      myXML,
+      { coercionType: 'ooxml' },
+        function (asyncResult) {
+          if (asyncResult.status === Office.AsyncResultStatus.Failed) {
+            console.log("Action failed with error: " + asyncResult.error.message);
+          }
+        });
+
+}
+    
+  
+  
+  
+  
+  
+  
   
     function insertfieldxmlname() {
 
@@ -126,7 +176,14 @@
 </pkg:package>`;
     
     
-    Office.context.document.setSelectedDataAsync(myXML, { coercionType: 'ooxml' });
+    Office.context.document.setSelectedDataAsync(
+      myXML,
+      { coercionType: 'ooxml' },
+        function (asyncResult) {
+          if (asyncResult.status === Office.AsyncResultStatus.Failed) {
+            console.log("Action failed with error: " + asyncResult.error.message);
+          }
+        });
 
 }
     
