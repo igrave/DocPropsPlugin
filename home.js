@@ -14,6 +14,7 @@
              //   $('#fieldadd').click(insertfieldxml);
                 $('#fieldaddname').click(insertfieldxmlname);
                 $('#props').click(showProps);
+                $('#addprop').click(addProp);
                 $('#supportedVersion').html('This code is using Word 2016 or greater.');
             }
             else {
@@ -64,14 +65,24 @@
     }
   
   
-  function addProp(name, value){
+  function addProp(){
      Word.run(function(context){
         var properties = context.document.properties;
         context.load(properties);
         var custom = properties.customProperties;
         context.load(custom);
+        
+        var name = $('input[name="newName"]').val();
+        var value = $('input[name="newValue"]').val();
+        
         custom.add(name, value);
+        
+        $('input[name="newName"]').val("");
+        $('input[name="newValue"]').val("");
+        
         return context.sync();
+        
+        
     });
     
   }//end addProp
@@ -80,7 +91,7 @@
 
     var fieldname = $('input[name="fieldNameSelection"]:checked').val();
     
-    var myOOXMLRequest = new XMLHttpRequest();
+    //var myOOXMLRequest = new XMLHttpRequest();
     var myXML;
  //   myOOXMLRequest.open('GET', fileName, false);
 //    myOOXMLRequest.send();
