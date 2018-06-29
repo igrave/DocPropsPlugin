@@ -107,7 +107,7 @@
         $('input[name="newName"]').val("");
         $('input[name="newValue"]').val("");
         
-        return context.sync();
+        return context.sync().then(showProps);
         
         
     });
