@@ -51,7 +51,7 @@
               
               myTable+="<td style='width: 100px; text-align: right;'><button id='" + custom.items[i].key + "'>Insert</button></td></tr>";
               
-              $(custom.items[i].key).on("click", function() insertfieldxmlpars(custom.items[i].key, custom.items[i].value));
+              //$(custom.items[i].key).on("click", function() {insertfieldxmlpars(custom.items[i].key, custom.items[i].value)});
             }
             //$('#wordProps').html(longstring);
             myTable+="</table>";
