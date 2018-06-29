@@ -41,6 +41,8 @@
             myTable+="</table>";
             document.getElementById('wordProps').innerHTML = myTable;
             
+            
+            $('#'+custom.items[i].key).on("click", {message: 'HELPMEJAVASCRITPT!'}, console.log);
          
             
             
