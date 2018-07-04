@@ -155,7 +155,7 @@
 
 
   
-    function insertfield2013(fieldname, fieldvalue) {
+    function insertfield(fieldname, fieldvalue) {
   var myXML;
 
     myXML = `<pkg:package xmlns:pkg="http://schemas.microsoft.com/office/2006/xmlPackage">
