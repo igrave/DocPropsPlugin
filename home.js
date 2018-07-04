@@ -26,6 +26,7 @@
                 $('#supportedVersion').html('This code requires Word 2016 or greater.');
             }
         });
+        showProps(); 
     };
     
     
