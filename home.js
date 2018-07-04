@@ -153,7 +153,66 @@
 
 
 
-  function insertfield(fieldname, fieldvalue) {
+
+  
+    function insertfield2013(fieldname, fieldvalue) {
+  var myXML;
+
+    myXML = `<pkg:package xmlns:pkg="http://schemas.microsoft.com/office/2006/xmlPackage">
+  <pkg:part pkg:name="/_rels/.rels" pkg:contentType="application/vnd.openxmlformats-package.relationships+xml" pkg:padding="512">
+    <pkg:xmlData>
+      <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+        <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
+      </Relationships>
+    </pkg:xmlData>
+  </pkg:part>
+  <pkg:part pkg:name="/word/document.xml" pkg:contentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml">
+    <pkg:xmlData>
+      <w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" >
+        <w:body>
+          <w:p>
+            <w:fldSimple w:instr="DOCPROPERTY ${fieldname} \\* MERGEFORMAT">
+              <w:r>
+                <w:t>${fieldvalue}</w:t>
+              </w:r>
+           </w:fldSimple>
+          </w:p>
+        </w:body>
+      </w:document>
+    </pkg:xmlData>
+  </pkg:part>
+</pkg:package>`;
+    
+    
+    Office.context.document.setSelectedDataAsync(
+      myXML,
+      { coercionType: 'ooxml' },
+        function (asyncResult) {
+          if (asyncResult.status === Office.AsyncResultStatus.Failed) {
+            console.log("Action failed with error: " + asyncResult.error.message);
+          }
+        });
+        
+        
+    Word.run(function (context) {
+        var range = context.document.getSelection();
+        range.select('end');
+        return context.sync();
+    });
+
+}
+    
+
+
+
+
+
+
+
+
+
+
+  function insertfield2016(fieldname, fieldvalue) {
   var myXML;
 
    myXML = "<pkg:package xmlns:pkg=\"http://schemas.microsoft.com/office/2006/xmlPackage\">\n  <pkg:part pkg:name=\"/_rels/.rels\" pkg:contentType=\"application/vnd.openxmlformats-package.relationships+xml\" pkg:padding=\"512\">\n    <pkg:xmlData>\n      <Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">\n        <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"word/document.xml\"/>\n      </Relationships>\n    </pkg:xmlData>\n  </pkg:part>\n  <pkg:part pkg:name=\"/word/document.xml\" pkg:contentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml\">\n    <pkg:xmlData>\n      <w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" >\n        <w:body>\n          <w:p>\n            <w:fldSimple w:instr=\"DOCPROPERTY " + fieldname + " \\* MERGEFORMAT\">\n              <w:r>\n                <w:t>" + fieldvalue + "</w:t>\n              </w:r>\n           </w:fldSimple>\n          </w:p>\n        </w:body>\n      </w:document>\n    </pkg:xmlData>\n  </pkg:part>\n</pkg:package>";
