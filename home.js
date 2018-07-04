@@ -190,15 +190,19 @@
         function (asyncResult) {
           if (asyncResult.status === Office.AsyncResultStatus.Failed) {
             console.log("Action failed with error: " + asyncResult.error.message);
-          }
-        });
-        
-        
+          } else {
+            
+            
     Word.run(function (context) {
         var range = context.document.getSelection();
         range.select('end');
         return context.sync();
     });
+            
+          } 
+        });
+        
+        
 
 }
     
