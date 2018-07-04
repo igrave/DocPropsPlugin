@@ -1,0 +1,45 @@
+/* A few extra styles to complement the fabric core stuff */
+
+.engraver-Button {
+    position: relative;
+    font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+    font-weight: 400;
+    box-sizing: border-box;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    vertical-align: top;
+    padding-top: 0px;
+    padding-right: 16px;
+    padding-bottom: 0px;
+    padding-left: 16px;
+    min-width: 80px;
+    height: 32px;
+    background-color: rgb(0, 120, 212);
+    color: rgb(255, 255, 255);
+    user-select: none;
+    outline: transparent;
+    border-width: 1px;
+    border-style: solid;
+    border-color: transparent;
+    border-image: initial;
+    text-decoration: none;
+    border-radius: 0px;
+}
+
+.engraver-Button-label {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.engraver-Button-icon {
+      align-items: center;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    position: relative;
+        color: #0078d7;
+  
+}
