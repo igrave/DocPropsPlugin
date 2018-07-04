@@ -49,4 +49,5 @@
 
 .engraver table {
   text-align: right;
+  border-collapse: collapse;
 }
