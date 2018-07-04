@@ -137,13 +137,6 @@
       console.log("insert is finished");
     }
     
-  }//end addProp
-  
-  
-  
-  
-  
-  
   
   
   function insertfieldxmlpars(event) {
