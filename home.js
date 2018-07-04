@@ -25,8 +25,13 @@
                 // Just letting you know that this code will not work with your version of Word.
                 $('#supportedVersion').html('This code requires Word 2016 or greater.');
             }
+            
+            showProps(); //Don't know if it should go within document.ready
         });
-        showProps(); 
+        
+        //showProps(); 
+
+
     };
     
     
