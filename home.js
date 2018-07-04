@@ -26,7 +26,9 @@
                 $('#supportedVersion').html('This code requires Word 2016 or greater.');
             }
             
-            showProps(); //Don't know if it should go within document.ready
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE ");
+            if(msie===0) showProps(); //Don't know if it should go within document.ready
         });
         
         //showProps(); 
