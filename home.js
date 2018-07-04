@@ -149,7 +149,43 @@
   insertfield(fieldname, fieldvalue);
 }
 
+
+
+
+
   function insertfield(fieldname, fieldvalue) {
+  var myXML;
+
+   myXML = "<pkg:package xmlns:pkg=\"http://schemas.microsoft.com/office/2006/xmlPackage\">\n  <pkg:part pkg:name=\"/_rels/.rels\" pkg:contentType=\"application/vnd.openxmlformats-package.relationships+xml\" pkg:padding=\"512\">\n    <pkg:xmlData>\n      <Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">\n        <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"word/document.xml\"/>\n      </Relationships>\n    </pkg:xmlData>\n  </pkg:part>\n  <pkg:part pkg:name=\"/word/document.xml\" pkg:contentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml\">\n    <pkg:xmlData>\n      <w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" >\n        <w:body>\n          <w:p>\n            <w:fldSimple w:instr=\"DOCPROPERTY " + fieldname + " \\* MERGEFORMAT\">\n              <w:r>\n                <w:t>" + fieldvalue + "</w:t>\n              </w:r>\n           </w:fldSimple>\n          </w:p>\n        </w:body>\n      </w:document>\n    </pkg:xmlData>\n  </pkg:part>\n</pkg:package>";
+    
+    
+      Word.run(function (context) {
+ 
+           var thisDocument = context.document;
+           var range = thisDocument.getSelection();
+ 
+            // Queue a command to replace the selected text.
+            range.insertOoxml(myXML, Word.InsertLocation.before);
+ 
+            // Synchronize the document state by executing the queued commands,
+            // and return a promise to indicate task completion.
+            return context.sync().then(function () {
+                console.log('Added XML for DOCPROPERTY '+ fieldname);
+            });
+        })
+        .catch(function (error) {
+            console.log('Error: ' + JSON.stringify(error));
+            if (error instanceof OfficeExtension.Error) {
+                console.log('Debug info: ' + JSON.stringify(error.debugInfo));
+            }
+        });
+    }
+
+
+    
+  
+  
+    function insertfield2013(fieldname, fieldvalue) {
   var myXML;
 
     myXML = `<pkg:package xmlns:pkg="http://schemas.microsoft.com/office/2006/xmlPackage">
@@ -189,9 +225,6 @@
 
 }
     
-  
-  
-  
   
   
   
