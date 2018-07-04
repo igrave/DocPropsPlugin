@@ -41,5 +41,12 @@
     padding: 0;
     position: relative;
         color: #0078d7;
-  
+}
+
+.engraver th {
+  width: 100px;
+}
+
+.engraver table {
+  text-align: right;
 }

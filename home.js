@@ -52,9 +52,9 @@
         context.load(custom);
         var longstring = "";
 
-        var myTable= "<table><tr><td style='width: 100px; color: red;'>Property</td>";
-        myTable+= "<td style='width: 100px; color: red; text-align: right;'>Value</td>";
-        myTable+= "<td style='width: 100px; color: red; text-align: right;'>Insert</td></tr>";
+        var myTable= "<table><tr><th>Property</th>";
+        myTable+= "<th>Value</th>";
+        myTable+= "<th>Insert</th></tr>";
     //    myTable+= "<td style='width: 100px; color: red; text-align: right;'>Button</td></tr>";
 
           return context.sync().then(function(){
@@ -67,11 +67,11 @@
             for(var i = 0; i < custom.items.length; i++){
               longstring += custom.items[i].key + ": " + custom.items[i].value +"<br>";
               
-              myTable+="<tr><td style='width: 100px;'>" + custom.items[i].key + "</td>";
-              myTable+="<td style='width: 100px; text-align: right;'>" + custom.items[i].value + "</td>";
+              myTable+="<tr><td>" + custom.items[i].key + "</td>";
+              myTable+="<td>" + custom.items[i].value + "</td>";
            //   myTable+="<td style='width: 100px; text-align: right;'><input type='radio' name='fieldNameSelection' value='" + custom.items[i].key + "'/></td></tr>";
               
-              myTable+="<td style='width: 100px; text-align: right;'><button id='" + custom.items[i].key + "'>Insert</button></td></tr>";
+              myTable+="<td><button id='" + custom.items[i].key + "'>Insert</button></td></tr>";
               
               gPropValues[i] = custom.items[i].value;
               gPropNames[i] = custom.items[i].key;
