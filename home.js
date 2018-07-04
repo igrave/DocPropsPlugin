@@ -67,7 +67,7 @@
             for(var i = 0; i < custom.items.length; i++){
               longstring += custom.items[i].key + ": " + custom.items[i].value +"<br>";
               
-              myTable+="<tr><td>" + custom.items[i].key + "</td>";
+              myTable+="<tr class='ms-bgColor-themeLighterAlt--hover'><td>" + custom.items[i].key + "</td>";
               myTable+="<td>" + custom.items[i].value + "</td>";
            //   myTable+="<td style='width: 100px; text-align: right;'><input type='radio' name='fieldNameSelection' value='" + custom.items[i].key + "'/></td></tr>";
               
