@@ -25,7 +25,15 @@
                 // Just letting you know that this code will not work with your version of Word.
                 $('#supportedVersion').html('This code requires Word 2016 or greater.');
             }
+            
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE ");
+            if(msie===0) showProps(); //Don't know if it should go within document.ready
         });
+        
+        //showProps(); 
+
+
     };
     
     
@@ -44,9 +52,9 @@
         context.load(custom);
         var longstring = "";
 
-        var myTable= "<table><tr><td style='width: 100px; color: red;'>Property</td>";
-        myTable+= "<td style='width: 100px; color: red; text-align: right;'>Value</td>";
-        myTable+= "<td style='width: 100px; color: red; text-align: right;'>Insert</td></tr>";
+        var myTable= "<table><tr><th>Property</th>";
+        myTable+= "<th>Value</th>";
+        myTable+= "<th>Insert</th></tr>";
     //    myTable+= "<td style='width: 100px; color: red; text-align: right;'>Button</td></tr>";
 
           return context.sync().then(function(){
@@ -59,11 +67,11 @@
             for(var i = 0; i < custom.items.length; i++){
               longstring += custom.items[i].key + ": " + custom.items[i].value +"<br>";
               
-              myTable+="<tr><td style='width: 100px;'>" + custom.items[i].key + "</td>";
-              myTable+="<td style='width: 100px; text-align: right;'>" + custom.items[i].value + "</td>";
+              myTable+="<tr class='ms-bgColor-themeLighterAlt--hover'><td>" + custom.items[i].key + "</td>";
+              myTable+="<td>" + custom.items[i].value + "</td>";
            //   myTable+="<td style='width: 100px; text-align: right;'><input type='radio' name='fieldNameSelection' value='" + custom.items[i].key + "'/></td></tr>";
               
-              myTable+="<td style='width: 100px; text-align: right;'><button id='" + custom.items[i].key + "'>Insert</button></td></tr>";
+              myTable+="<td><button id='" + custom.items[i].key + "'>Insert</button></td></tr>";
               
               gPropValues[i] = custom.items[i].value;
               gPropNames[i] = custom.items[i].key;
@@ -137,13 +145,6 @@
       console.log("insert is finished");
     }
     
-  }//end addProp
-  
-  
-  
-  
-  
-  
   
   
   function insertfieldxmlpars(event) {
@@ -155,33 +156,16 @@
   insertfield(fieldname, fieldvalue);
 }
 
-  function insertfield(fieldname, fieldvalue) {
+
+
+
+
+
+  
+    function insertfield(fieldname, fieldvalue) {
   var myXML;
 
-    myXML = `<pkg:package xmlns:pkg="http://schemas.microsoft.com/office/2006/xmlPackage">
-  <pkg:part pkg:name="/_rels/.rels" pkg:contentType="application/vnd.openxmlformats-package.relationships+xml" pkg:padding="512">
-    <pkg:xmlData>
-      <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
-        <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
-      </Relationships>
-    </pkg:xmlData>
-  </pkg:part>
-  <pkg:part pkg:name="/word/document.xml" pkg:contentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml">
-    <pkg:xmlData>
-      <w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main" >
-        <w:body>
-          <w:p>
-            <w:fldSimple w:instr="DOCPROPERTY ${fieldname} \\* MERGEFORMAT">
-              <w:r>
-                <w:t>${fieldvalue}</w:t>
-              </w:r>
-           </w:fldSimple>
-          </w:p>
-        </w:body>
-      </w:document>
-    </pkg:xmlData>
-  </pkg:part>
-</pkg:package>`;
+    myXML = "<pkg:package xmlns:pkg=\"http://schemas.microsoft.com/office/2006/xmlPackage\">\n  <pkg:part pkg:name=\"/_rels/.rels\" pkg:contentType=\"application/vnd.openxmlformats-package.relationships+xml\" pkg:padding=\"512\">\n    <pkg:xmlData>\n      <Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">\n        <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"word/document.xml\"/>\n      </Relationships>\n    </pkg:xmlData>\n  </pkg:part>\n  <pkg:part pkg:name=\"/word/document.xml\" pkg:contentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml\">\n    <pkg:xmlData>\n      <w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" >\n        <w:body>\n          <w:p>\n            <w:fldSimple w:instr=\"DOCPROPERTY " + fieldname + " \\* MERGEFORMAT\">\n              <w:r>\n                <w:t>" + fieldvalue + "</w:t>\n              </w:r>\n           </w:fldSimple>\n          </w:p>\n        </w:body>\n      </w:document>\n    </pkg:xmlData>\n  </pkg:part>\n</pkg:package>";
     
     
     Office.context.document.setSelectedDataAsync(
@@ -190,18 +174,63 @@
         function (asyncResult) {
           if (asyncResult.status === Office.AsyncResultStatus.Failed) {
             console.log("Action failed with error: " + asyncResult.error.message);
-          }
+          } else {
+            
+            
+    Word.run(function (context) {
+        var range = context.document.getSelection();
+        range.select('end');
+        return context.sync();
+    });
+            
+          } 
         });
+        
+        
 
 }
     
-  
-  
-  
-  
+
+
+
+
+
+
+
+
+
+
+  function insertfield2016(fieldname, fieldvalue) {
+  var myXML;
+
+   myXML = "<pkg:package xmlns:pkg=\"http://schemas.microsoft.com/office/2006/xmlPackage\">\n  <pkg:part pkg:name=\"/_rels/.rels\" pkg:contentType=\"application/vnd.openxmlformats-package.relationships+xml\" pkg:padding=\"512\">\n    <pkg:xmlData>\n      <Relationships xmlns=\"http://schemas.openxmlformats.org/package/2006/relationships\">\n        <Relationship Id=\"rId1\" Type=\"http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument\" Target=\"word/document.xml\"/>\n      </Relationships>\n    </pkg:xmlData>\n  </pkg:part>\n  <pkg:part pkg:name=\"/word/document.xml\" pkg:contentType=\"application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml\">\n    <pkg:xmlData>\n      <w:document xmlns:w=\"http://schemas.openxmlformats.org/wordprocessingml/2006/main\" >\n        <w:body>\n          <w:p>\n            <w:fldSimple w:instr=\"DOCPROPERTY " + fieldname + " \\* MERGEFORMAT\">\n              <w:r>\n                <w:t>" + fieldvalue + "</w:t>\n              </w:r>\n           </w:fldSimple>\n          </w:p>\n        </w:body>\n      </w:document>\n    </pkg:xmlData>\n  </pkg:part>\n</pkg:package>";
+    
+    
+      Word.run(function (context) {
+ 
+           var thisDocument = context.document;
+           var range = thisDocument.getSelection();
+ 
+            // Queue a command to replace the selected text.
+            range.insertOoxml(myXML, Word.InsertLocation.before);
+ 
+            // Synchronize the document state by executing the queued commands,
+            // and return a promise to indicate task completion.
+            return context.sync().then(function () {
+                console.log('Added XML for DOCPROPERTY '+ fieldname);
+            });
+        })
+        .catch(function (error) {
+            console.log('Error: ' + JSON.stringify(error));
+            if (error instanceof OfficeExtension.Error) {
+                console.log('Debug info: ' + JSON.stringify(error.debugInfo));
+            }
+        });
+    }
+
+
+    
   
   
 
- 
- 
 })();
